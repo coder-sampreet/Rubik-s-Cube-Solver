@@ -24,7 +24,59 @@ class RubiksCube:
 
     def rotate_face_clockwise(self, face):
         # Rotate the stickers of a face clockwise
-        pass
+        
+        old_face = self.cube[face]
+        new_face = [
+            [old_face[2][0], old_face[1][0], old_face[0][0]],
+            [old_face[2][1], old_face[1][1], old_face[0][1]],
+            [old_face[2][2], old_face[1][2], old_face[0][2]]
+        ]
+        self.cube[face] = new_face
+
+        # Step 2: Rotate the adjacent edges
+        if face == 'green':
+            temp = self.cube['white'][2]
+            self.cube['white'][2] = [self.cube['orange'][2][2], self.cube['orange'][1][2], self.cube['orange'][0][2]]
+            self.cube['orange'][0][2], self.cube['orange'][1][2], self.cube['orange'][2][2] = self.cube['yellow'][0]
+            self.cube['yellow'][0] = [self.cube['red'][2][0], self.cube['red'][1][0], self.cube['red'][0][0]]
+            self.cube['red'][0][0], self.cube['red'][1][0], self.cube['red'][2][0] = temp
+
+        elif face == 'blue':
+            temp = self.cube['yellow'][2]
+            self.cube['yellow'][2] = [self.cube['orange'][0][0], self.cube['orange'][1][0], self.cube['orange'][2][0]]
+            self.cube['orange'][2][0], self.cube['orange'][1][0], self.cube['orange'][0][0] = self.cube['white'][0]
+            self.cube['white'][0] = [self.cube['red'][0][2], self.cube['red'][1][2], self.cube['red'][2][2]]
+            self.cube['red'][0][2], self.cube['red'][1][2], self.cube['red'][2][2] = temp[::-1]
+
+
+        elif face == 'white':
+            temp = self.cube['blue'][2]
+            self.cube['blue'][2] = self.cube['orange'][0][::-1]
+            self.cube['orange'][0] = self.cube['green'][0]
+            self.cube['green'][0] = self.cube['red'][0]
+            self.cube['red'][0] = temp[::-1]
+
+        elif face == 'yellow':
+            temp = self.cube['green'][2]
+            self.cube['green'][2] = self.cube['orange'][2]
+            self.cube['orange'][2] = self.cube['blue'][0][::-1]
+            self.cube['blue'][0] = self.cube['red'][2][::-1]
+            self.cube['red'][2] = temp
+
+        elif face == 'orange':
+            temp = [self.cube['white'][0][0],self.cube['white'][1][0],self.cube['white'][2][0]]
+            self.cube['white'][0][0],self.cube['white'][1][0],self.cube['white'][2][0] = [self.cube['blue'][0][0],self.cube['blue'][1][0],self.cube['blue'][2][0]]
+            self.cube['blue'][0][0],self.cube['blue'][1][0],self.cube['blue'][2][0] = [self.cube['yellow'][0][0],self.cube['yellow'][1][0],self.cube['yellow'][2][0]]
+            self.cube['yellow'][0][0],self.cube['yellow'][1][0],self.cube['yellow'][2][0] =[self.cube['green'][0][0],self.cube['green'][1][0],self.cube['green'][2][0]]
+            self.cube['green'][0][0],self.cube['green'][1][0],self.cube['green'][2][0] = temp
+
+        elif face == 'red':
+            temp = [self.cube['white'][2][2],self.cube['white'][1][2],self.cube['white'][0][2]]
+            self.cube['white'][2][2],self.cube['white'][1][2],self.cube['white'][0][2] = [self.cube['green'][2][2],self.cube['green'][1][2],self.cube['green'][0][2]]
+            self.cube['green'][2][2],self.cube['green'][1][2],self.cube['green'][0][2] = [self.cube['yellow'][2][2],self.cube['yellow'][1][2],self.cube['yellow'][0][2]]
+            self.cube['yellow'][2][2],self.cube['yellow'][1][2],self.cube['yellow'][0][2] = [self.cube['blue'][2][2],self.cube['blue'][1][2],self.cube['blue'][0][2]]
+            self.cube['blue'][2][2],self.cube['blue'][1][2],self.cube['blue'][0][2] = temp
+
     def rotate_face_counter_clockwise(self, face):
         # Rotate the stickers of a face counter-clockwise
         pass

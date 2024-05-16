@@ -131,29 +131,6 @@ class RubiksCube:
             self.cube['green'][2][2],self.cube['green'][1][2],self.cube['green'][0][2] = temp
 
 
-    def cross(self):
-        # Solve the cross on one face
-        pass
-
-    def f2l(self):
-        # Solve the first two layers
-        pass
-
-    def oll(self):
-        # Orient the last layer
-        pass
-
-    def pll(self):
-        # Permute the last layer
-        pass
-
-    def solve(self):
-        # Solve the Rubik's Cube using CFOP method
-        self.cross()
-        self.f2l()
-        self.oll()
-        self.pll()
-
     def print_cube(self):
         for face, stickers in self.cube.items():
             print(f"Face: {face}")

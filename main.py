@@ -22,6 +22,18 @@ class RubiksCube:
                     ['R7', 'R8', 'R9']]    # right
         }
 
+    def input_cube_state(self):
+        faces = ['green', 'blue', 'white', 'yellow', 'orange', 'red']
+        for face in faces:
+            print(f"Enter the pieces for the {face} face in row-major order (9 pieces, separated by spaces):")
+            while True:
+                pieces = input().split()
+                if len(pieces) == 9:
+                    self.cube[face] = [pieces[:3], pieces[3:6], pieces[6:]]
+                    break
+                else:
+                    print("Invalid input. Please enter exactly 9 pieces.")
+
     def rotate_face_clockwise(self, face):
         # Rotate the stickers of a face clockwise
         

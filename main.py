@@ -157,6 +157,7 @@ class RubiksCube:
                 return "white"
     
     def perform_moves(self, moves):
+        print(moves)
         for move in moves.split():
             if move.endswith("'"):
                 self.rotate_face_counter_clockwise(self.check_face(move[0]))

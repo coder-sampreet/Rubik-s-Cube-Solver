@@ -164,8 +164,6 @@ class RubiksCube:
                 self.rotate_face_clockwise(self.check_face(move))
 
     def white_cross(self):
-        #complete the white cross using beginner's method
-
 # if already crossed then skip
         if 'W' in self.cube['white'][2][1] and 'G' in self.cube['green'][0][1]:
             pass
@@ -176,167 +174,287 @@ class RubiksCube:
         if 'W' in self.cube['white'][0][1] and 'B' in self.cube['blue'][2][1]:
             pass
 
-# for white green edge
+ # Logic for positioning each white edge piece
 
-        if 'G' in self.cube['white'][2][1] and 'W' in self.cube['green'][0][1]: #right place but fliped
-            print("G2  Y  R  G'  R'")
-            cube.rotate_face_clockwise('green')
-            cube.rotate_face_clockwise('green')
-            cube.rotate_face_clockwise('yellow')
-            cube.rotate_face_clockwise('red')
-            cube.rotate_face_counter_clockwise('green')
-            cube.rotate_face_counter_clockwise('red')
-
-        if 'W' in self.cube['white'][1][2] and 'G' in self.cube['red'][0][1]: # on white red edge
-            print("R'2  Y'  G2")
-            cube.rotate_face_counter_clockwise('red')
-            cube.rotate_face_counter_clockwise('red')
-            cube.rotate_face_counter_clockwise('yellow')
-            cube.rotate_face_clockwise('green')
-            cube.rotate_face_clockwise('green')
-
-        if 'G' in self.cube['white'][1][2] and 'W' in self.cube['red'][0][1]: # on white red edge but flipped
-            print("R' G'")
-            cube.rotate_face_counter_clockwise('red')
-            cube.rotate_face_counter_clockwise('green')
-
-        if 'W' in self.cube['white'][1][0] and 'G' in self.cube['orange'][0][1]: # on white orange edge
-            print("O2  Y  G2")
-            cube.rotate_face_clockwise('orange')
-            cube.rotate_face_clockwise('orange')
-            cube.rotate_face_clockwise('yellow')
-            cube.rotate_face_clockwise('green')
-            cube.rotate_face_clockwise('green')
-
-        if 'G' in self.cube['white'][1][0] and 'W' in self.cube['orange'][0][1]: # on white orange edge but flipped
-            print("O  G")
-            cube.rotate_face_clockwise('orange')
-            cube.rotate_face_clockwise('green')
-
-        if 'W' in self.cube['white'][0][1] and 'G' in self.cube['blue'][2][1]: # on white blue edge
-            print("B2  Y2  G2")
-            cube.rotate_face_clockwise('blue')
-            cube.rotate_face_clockwise('blue')
-            cube.rotate_face_clockwise('yellow')
-            cube.rotate_face_clockwise('yellow')
-            cube.rotate_face_clockwise('green')
-            cube.rotate_face_clockwise('green')
-
-        if 'G' in self.cube['white'][0][1] and 'W' in self.cube['blue'][2][1]: # on white blue edge but fliped
-            print("B2  Y'  R   G'  R'")
-            cube.rotate_face_clockwise('blue')
-            cube.rotate_face_clockwise('blue')
-            cube.rotate_face_counter_clockwise('yellow')
-            cube.rotate_face_clockwise('red')
-            cube.rotate_face_counter_clockwise('green')
-            cube.rotate_face_counter_clockwise('red')
-
-        if 'G' in self.cube['green'][1][2] and 'W' in self.cube['red'][1][0]: # on green red edge
-            print("G'")
-            cube.rotate_face_counter_clockwise('green')
-
-        if 'W' in self.cube['green'][1][2] and 'G' in self.cube['red'][1][0]: # on green red edge but flipped
-            print("R'  Y'  R  G2")
-            cube.rotate_face_counter_clockwise('red')
-            cube.rotate_face_counter_clockwise('yellow')
-            cube.rotate_face_clockwise('red')
-            cube.rotate_face_clockwise('green')
-            cube.rotate_face_clockwise('green')
+        # White-Green edge cases
+        if 'G' in self.cube['white'][2][1] and 'W' in self.cube['green'][0][1]:  # right place but flipped c
+            self.perform_moves("G2 Y R G' R'")
         
-        if 'G' in self.cube['green'][1][0] and 'W' in self.cube['orange'][1][2]: # on green orange edge
-            print("G")
-            cube.rotate_face_clockwise('green')
-
-        if 'W' in self.cube['green'][1][0] and 'G' in self.cube['orange'][1][2]: # on green orange edge but flipped
-            print("O  Y  O'  G2")
-            cube.rotate_face_clockwise('orange')
-            cube.rotate_face_clockwise('yellow')
-            cube.rotate_face_counter_clockwise('orange')
-            cube.rotate_face_clockwise('green')
-            cube.rotate_face_clockwise('green')
-            
-        if 'G' in self.cube['green'][2][1] and 'W' in self.cube['yellow'][0][1]: # on green yellow edge
-            print("G2")
-            cube.rotate_face_clockwise('green')
-            cube.rotate_face_clockwise('green')
-
-        if 'W' in self.cube['green'][2][1] and 'G' in self.cube['yellow'][0][1]: # on green yellow edge but flipped
-            print("Y  R  G'  R'")
-            cube.rotate_face_clockwise('yellow')
-            cube.rotate_face_clockwise('red')
-            cube.rotate_face_counter_clockwise('green')
-            cube.rotate_face_counter_clockwise('red')
-
-        if 'G' in self.cube['red'][2][1] and 'W' in self.cube['yellow'][1][2]: # on red yellow edge
-            print("Y'  G2")
-            cube.rotate_face_counter_clockwise('yellow')
-            cube.rotate_face_clockwise('green')
-            cube.rotate_face_clockwise('green')
+        if 'W' in self.cube['white'][1][2] and 'G' in self.cube['red'][0][1]:  # on white-red edge c
+            self.perform_moves("R'2 Y' G2")
         
-        if 'W' in self.cube['red'][2][1] and 'G' in self.cube['yellow'][1][2]: # on red yellow edge but flipped
-            print("R  G'  R'")
-            cube.rotate_face_clockwise('red')
-            cube.rotate_face_counter_clockwise('green')
-            cube.rotate_face_counter_clockwise('red')
+        if 'G' in self.cube['white'][1][2] and 'W' in self.cube['red'][0][1]:  # on white-red edge but flipped c
+            self.perform_moves("R' G'")
+        
+        if 'W' in self.cube['white'][1][0] and 'G' in self.cube['orange'][0][1]:  # on white-orange edge c
+            self.perform_moves("O2 Y G2")
+        
+        if 'G' in self.cube['white'][1][0] and 'W' in self.cube['orange'][0][1]:  # on white-orange edge but flipped c
+            self.perform_moves("O G")
+        
+        if 'W' in self.cube['white'][0][1] and 'G' in self.cube['blue'][2][1]:  # on white-blue edge c
+            self.perform_moves("B2 Y2 G2")
+        
+        if 'G' in self.cube['white'][0][1] and 'W' in self.cube['blue'][2][1]:  # on white-blue edge but flipped c
+            self.perform_moves("B2 Y' R G' R'")
+        
+        if 'G' in self.cube['green'][1][2] and 'W' in self.cube['red'][1][0]:  # on green-red edge c
+            self.perform_moves("G'")
+        
+        if 'W' in self.cube['green'][1][2] and 'G' in self.cube['red'][1][0]:  # on green-red edge but flipped c
+            self.perform_moves("R' Y' R G2")
+        
+        if 'G' in self.cube['green'][1][0] and 'W' in self.cube['orange'][1][2]:  # on green-orange edge c
+            self.perform_moves("G")
+        
+        if 'W' in self.cube['green'][1][0] and 'G' in self.cube['orange'][1][2]:  # on green-orange edge but flipped c
+            self.perform_moves("O Y O' G2")
+        
+        if 'G' in self.cube['green'][2][1] and 'W' in self.cube['yellow'][0][1]:  # on green-yellow edge c
+            self.perform_moves("G2")
+        
+        if 'W' in self.cube['green'][2][1] and 'G' in self.cube['yellow'][0][1]:  # on green-yellow edge but flipped c
+            self.perform_moves("Y R G' R'")
+        
+        if 'G' in self.cube['red'][2][1] and 'W' in self.cube['yellow'][1][2]:  # on red-yellow edge c
+            self.perform_moves("Y' G2")
+        
+        if 'W' in self.cube['red'][2][1] and 'G' in self.cube['yellow'][1][2]:  # on red-yellow edge but flipped c
+            self.perform_moves("R G' R'")
+        
+        if 'G' in self.cube['orange'][2][1] and 'W' in self.cube['yellow'][1][0]:  # on orange-yellow edge c
+            self.perform_moves("Y G2")
+        
+        if 'W' in self.cube['orange'][2][1] and 'G' in self.cube['yellow'][1][0]:  # on orange-yellow edge but flipped c
+            self.perform_moves("O' G O")
+        
+        if 'G' in self.cube['blue'][0][1] and 'W' in self.cube['yellow'][2][1]:  # on blue-yellow edge c
+            self.perform_moves("Y2 G2")
+        
+        if 'W' in self.cube['blue'][0][1] and 'G' in self.cube['yellow'][2][1]:  # on blue-yellow edge but flipped c
+            self.perform_moves("Y' R G' R'")
+        
+        if 'G' in self.cube['red'][1][2] and 'W' in self.cube['blue'][1][2]:  # on red-blue edge c
+            self.perform_moves("R Y' R' G2")
+        
+        if 'W' in self.cube['red'][1][2] and 'G' in self.cube['blue'][1][2]:  # on red-blue edge but flipped c
+            self.perform_moves("R2 G' R2")
+        
+        if 'G' in self.cube['orange'][1][0] and 'W' in self.cube['blue'][1][0]:  # on orange-blue edge c
+            self.perform_moves("O' Y O G2")
+        
+        if 'W' in self.cube['orange'][1][0] and 'G' in self.cube['blue'][1][0]:  # on orange-blue edge but flipped c
+            self.perform_moves("O2 G O2")
+        
+        # White-Red edge cases
+        if 'R' in self.cube['white'][1][2] and 'W' in self.cube['red'][0][1]:  # right place but flipped c
+            self.perform_moves("R2 Y' G' R G")
+        
+        if 'W' in self.cube['white'][0][1] and 'R' in self.cube['blue'][2][1]:  # on white-blue edge c
+            self.perform_moves("B2 Y' R2")
+        
+        if 'R' in self.cube['white'][0][1] and 'W' in self.cube['blue'][2][1]:  # on white-blue edge but flipped c
+            self.perform_moves("B' R'")
+        
+        if 'W' in self.cube['white'][1][0] and 'R' in self.cube['orange'][0][1]:  # on white-orange edge c
+            self.perform_moves("O2 Y2 R2")
+        
+        if 'R' in self.cube['white'][1][0] and 'W' in self.cube['orange'][0][1]:  # on white-orange edge but flipped c
+            self.perform_moves("O2  Y  G' R  G")
+        
+        if 'W' in self.cube['white'][2][1] and 'R' in self.cube['green'][0][1]:  # on white-green edge c
+            self.perform_moves("G2 Y R2")
+        
+        if 'R' in self.cube['white'][2][1] and 'W' in self.cube['green'][0][1]:  # on white-green edge but flipped c
+            self.perform_moves("G R")
+        
+        if 'R' in self.cube['red'][1][2] and 'W' in self.cube['blue'][1][2]:  # on red-blue edge c
+            self.perform_moves("R'")
+        
+        if 'W' in self.cube['red'][1][2] and 'R' in self.cube['blue'][1][2]:  # on red-blue edge but flipped c
+            self.perform_moves("B' Y' R2 B")
+        
+        if 'R' in self.cube['red'][2][1] and 'W' in self.cube['yellow'][1][2]:  # on red-yellow edge c
+            self.perform_moves("R2")
+        
+        if 'W' in self.cube['red'][2][1] and 'R' in self.cube['yellow'][1][2]:  # on red-yellow edge but flipped C
+            self.perform_moves("Y' G' R  G")
+        
+        if 'W' in self.cube['green'][1][2] and 'R' in self.cube['red'][1][0]:  # on green-red edge c
+            self.perform_moves("R")
+        
+        if 'R' in self.cube['green'][1][2] and 'W' in self.cube['red'][1][0]:  # on green-red edge but flipped c
+            self.perform_moves("R' Y' G' R G")
+        
+        if 'R' in self.cube['blue'][0][1] and 'W' in self.cube['yellow'][2][1]:  # on blue-yellow edge c
+            self.perform_moves("Y' R2")
+        
+        if 'W' in self.cube['blue'][0][1] and 'R' in self.cube['yellow'][2][1]:  # on blue-yellow edge but flipped c
+            self.perform_moves("B  R' B'")
+        
+        if 'R' in self.cube['orange'][1][0] and 'W' in self.cube['blue'][1][0]:  # on orange-blue edge c
+            self.perform_moves("O' Y2 O R2")
+        
+        if 'W' in self.cube['orange'][1][0] and 'R' in self.cube['blue'][1][0]:  # on orange-blue edge but flipped C
+            self.perform_moves("O' Y  G'  R  G  O")
 
-        if 'G' in self.cube['orange'][2][1] and 'W' in self.cube['yellow'][1][0]: # on orange yellow edge
-            print("Y  G2")
-            cube.rotate_face_clockwise('yellow')
-            cube.rotate_face_clockwise('green')
-            cube.rotate_face_clockwise('green')
+        if 'R' in self.cube['orange'][1][2] and 'W' in self.cube['green'][1][0]:  # on orange-green edge c
+            self.perform_moves("O Y2 R2 O'")
 
-        if 'W' in self.cube['orange'][2][1] and 'G' in self.cube['yellow'][1][0]: # on orange yellow edge but flipped
-            print("O'  G  O")
-            cube.rotate_face_counter_clockwise('orange')
-            cube.rotate_face_clockwise('green')
-            cube.rotate_face_clockwise('orange')
+        if 'W' in self.cube['orange'][1][2] and 'R' in self.cube['green'][1][0]:  # on orange-green edge but flipped c
+            self.perform_moves("G' Y R2 G")
 
-        if 'G' in self.cube['blue'][0][1] and 'W' in self.cube['yellow'][2][1]: # on blue yellow edge
-            print("Y2  G2")
-            cube.rotate_face_clockwise('yellow')
-            cube.rotate_face_clockwise('yellow')
-            cube.rotate_face_clockwise('green')
-            cube.rotate_face_clockwise('green')
+        if 'R' in self.cube['green'][2][1] and 'W' in self.cube['yellow'][0][1]:  # on green-yellow edge c
+            self.perform_moves("Y R2")
 
-        if 'W' in self.cube['blue'][0][1] and 'G' in self.cube['yellow'][2][1]: # on blue yellow edge but flipped
-            print("Y'  R  G'  R'")
-            cube.rotate_face_counter_clockwise('yellow')
-            cube.rotate_face_clockwise('red')
-            cube.rotate_face_counter_clockwise('green')
-            cube.rotate_face_counter_clockwise('red')
+        if 'W' in self.cube['green'][2][1] and 'R' in self.cube['yellow'][0][1]:  # on green-yellow edge but flipped c
+            self.perform_moves("G' R G")
 
-        if 'G' in self.cube['red'][1][2] and 'W' in self.cube['blue'][1][2]: # on red blue edge
-            print("R  Y'  R'  G2")
-            cube.rotate_face_clockwise('red')
-            cube.rotate_face_counter_clockwise('yellow')
-            cube.rotate_face_counter_clockwise('red')
-            cube.rotate_face_clockwise('green')
-            cube.rotate_face_clockwise('green')
+        if 'R' in self.cube['orange'][2][1] and 'W' in self.cube['yellow'][1][0]:  # on orange-yellow edge c
+            self.perform_moves("Y2 R2")
 
-        if 'W' in self.cube['red'][1][2] and 'G' in self.cube['blue'][1][2]: # on red blue edge but flipped
-            print("R2  G'  R'2")
-            cube.rotate_face_clockwise('red')
-            cube.rotate_face_clockwise('red')
-            cube.rotate_face_counter_clockwise('green')
-            cube.rotate_face_counter_clockwise('red')
-            cube.rotate_face_counter_clockwise('red')
+        if 'W' in self.cube['orange'][2][1] and 'R' in self.cube['yellow'][1][0]:  # on orange-yellow edge BUT FLIPPEND c
+            self.perform_moves("Y G' R G")
+        
+        # White-Blue edge cases
+        if 'B' in self.cube['white'][0][1] and 'W' in self.cube['blue'][2][1]:  # right place but flipped C
+            self.perform_moves("B2 Y' R' B R")
+        
+        if 'W' in self.cube['white'][1][0] and 'B' in self.cube['orange'][0][1]:  # on white-orange edge C
+            self.perform_moves("O2 Y' B2")
+        
+        if 'B' in self.cube['white'][1][0] and 'W' in self.cube['orange'][0][1]:  # on white-orange edge but flipped C
+            self.perform_moves("O' B'")
+        
+        if 'W' in self.cube['white'][1][2] and 'B' in self.cube['red'][0][1]:  # on white-red edge C
+            self.perform_moves("R2 Y B2")
+        
+        if 'B' in self.cube['white'][1][2] and 'W' in self.cube['red'][0][1]:  # on white-red edge but flipped C
+            self.perform_moves("R B")
+        
+        if 'W' in self.cube['white'][2][1] and 'B' in self.cube['green'][0][1]:  # on white-green edge C
+            self.perform_moves("G2 Y2 B2")
+        
+        if 'B' in self.cube['white'][2][1] and 'W' in self.cube['green'][0][1]:  # on white-green edge but flipped C
+            self.perform_moves("G2 Y R' B R")
+        
+        if 'B' in self.cube['blue'][1][2] and 'W' in self.cube['red'][1][2]:  # on blue-red edge C
+            self.perform_moves("B")
+        
+        if 'W' in self.cube['blue'][1][2] and 'B' in self.cube['red'][1][2]:  # on blue-red edge but flipped C
+            self.perform_moves("R  Y B2 R'")
+        
+        if 'B' in self.cube['blue'][0][1] and 'W' in self.cube['yellow'][2][1]:  # on blue-yellow edge C
+            self.perform_moves("B2")
+        
+        if 'W' in self.cube['blue'][0][1] and 'B' in self.cube['yellow'][2][1]:  # on blue-yellow edge but flipped C
+            self.perform_moves("Y' R' B R")
+        
+        if 'W' in self.cube['orange'][1][0] and 'B' in self.cube['blue'][1][0]:  # on orange-blue edge C
+            self.perform_moves("B'")
+        
+        if 'B' in self.cube['orange'][1][0] and 'W' in self.cube['blue'][1][0]:  # on orange-blue edge but flipped C
+            self.perform_moves("O' Y' B2 O")
+        
+        if 'B' in self.cube['green'][1][2] and 'W' in self.cube['red'][1][0]:  # on green-red edge C
+            self.perform_moves("R2  G  R2")
+        
+        if 'W' in self.cube['green'][1][2] and 'B' in self.cube['red'][1][0]:  # on green-red edge but flipped C
+            self.perform_moves("R  Y  R'  B2")
+        
+        if 'B' in self.cube['red'][2][1] and 'W' in self.cube['yellow'][1][2]:  # on red-yellow edge C
+            self.perform_moves("Y B2")
+        
+        if 'W' in self.cube['red'][2][1] and 'B' in self.cube['yellow'][1][2]:  # on red-yellow edge but flipped C
+            self.perform_moves("R' B  R")
 
-        if 'G' in self.cube['orange'][1][0] and 'W' in self.cube['blue'][1][0]: # on orange blue edge
-            print("O'  Y  O  G2")
-            cube.rotate_face_counter_clockwise('orange')
-            cube.rotate_face_clockwise('yellow')
-            cube.rotate_face_clockwise('orange')
-            cube.rotate_face_clockwise('green')
-            cube.rotate_face_clockwise('green')
+        if 'W' in self.cube['orange'][1][2] and 'B' in self.cube['green'][1][0]:  # on orange-green edge c
+            self.perform_moves("O2 B' O2")
 
-        if 'W' in self.cube['orange'][1][0] and 'G' in self.cube['blue'][1][0]: # on orange blue edge but flipped
-            print("O'2  G  O2")
-            cube.rotate_face_counter_clockwise('orange')
-            cube.rotate_face_counter_clockwise('orange')
-            cube.rotate_face_clockwise('green')
-            cube.rotate_face_clockwise('orange')
-            cube.rotate_face_clockwise('orange')
+        if 'B' in self.cube['orange'][1][2] and 'W' in self.cube['green'][1][0]:  # on orange-green edge but flipped c
+            self.perform_moves("O Y' B2 O'")
 
+        if 'B' in self.cube['green'][2][1] and 'W' in self.cube['yellow'][0][1]:  # on green-yellow edge c
+            self.perform_moves("Y2 B2")
+
+        if 'W' in self.cube['green'][2][1] and 'B' in self.cube['yellow'][0][1]:  # on green-yellow edge but flipped c
+            self.perform_moves("Y R' B R")
+
+        if 'B' in self.cube['orange'][2][1] and 'W' in self.cube['yellow'][1][0]:  # on orange-yellow edge c
+            self.perform_moves("Y' B2")
+
+        if 'W' in self.cube['orange'][2][1] and 'B' in self.cube['yellow'][1][0]:  # on orange-yellow edge BUT FLIPPEND c
+            self.perform_moves("O B' O'")
+        
+        # White-Orange edge cases
+        if 'O' in self.cube['white'][1][0] and 'W' in self.cube['orange'][0][1]:  # right place but flipped C
+            self.perform_moves("O2 Y G O' G'")
+        
+        if 'W' in self.cube['white'][2][1] and 'O' in self.cube['green'][0][1]:  # on white-green edge C
+            self.perform_moves("G2 Y' O2")
+        
+        if 'O' in self.cube['white'][2][1] and 'W' in self.cube['green'][0][1]:  # on white-green edge but flipped C
+            self.perform_moves("G' O'")
+        
+        if 'W' in self.cube['white'][0][1] and 'O' in self.cube['blue'][2][1]:  # on white-blue edge C
+            self.perform_moves("B2 Y O2")
+        
+        if 'O' in self.cube['white'][0][1] and 'W' in self.cube['blue'][2][1]:  # on white-blue edge but flipped C
+            self.perform_moves("B  O")
+        
+        if 'W' in self.cube['white'][1][2] and 'O' in self.cube['red'][0][1]:  # on white-red edge C
+            self.perform_moves("R2 Y2 O2")
+        
+        if 'O' in self.cube['white'][1][2] and 'W' in self.cube['red'][0][1]:  # on white-red edge but flipped C
+            self.perform_moves("R2 Y' G O' G'")
+        
+        if 'O' in self.cube['orange'][1][0] and 'W' in self.cube['blue'][1][0]:  # on orange-blue edge C
+            self.perform_moves("O")
+        
+        if 'W' in self.cube['orange'][1][0] and 'O' in self.cube['blue'][1][0]:  # on orange-blue edge but flipped C
+            self.perform_moves("B Y O2 B'")
+        
+        if 'O' in self.cube['orange'][2][1] and 'W' in self.cube['yellow'][1][0]:  # on orange-yellow edge 
+            self.perform_moves("O2")
+        
+        if 'W' in self.cube['orange'][2][1] and 'O' in self.cube['yellow'][1][0]:  # on orange-yellow edge but flipped C
+            self.perform_moves("Y G O' G'")
+        
+        if 'W' in self.cube['green'][1][0] and 'O' in self.cube['orange'][1][2]:  # on green-orange edge C
+            self.perform_moves("O'")
+        
+        if 'O' in self.cube['green'][1][0] and 'W' in self.cube['orange'][1][2]:  # on green-orange edge but flipped C
+            self.perform_moves("G' Y' O2 G")
+        
+        if 'O' in self.cube['red'][1][2] and 'W' in self.cube['blue'][1][2]:  # on red-blue edge C
+            self.perform_moves("R Y2 R' O2")
+        
+        if 'W' in self.cube['red'][1][2] and 'O' in self.cube['blue'][1][2]:  # on red-blue edge but flipped C
+            self.perform_moves("B' Y O2 B")
+        
+        if 'W' in self.cube['yellow'][0][1] and 'O' in self.cube['green'][2][1]:  # on yellow-green edge C
+            self.perform_moves("G O' G'")
+        
+        if 'O' in self.cube['yellow'][0][1] and 'W' in self.cube['green'][2][1]:  # on yellow-green edge but flipped C
+            self.perform_moves("Y' O2")
+
+        if 'O' in self.cube['red'][2][1] and 'W' in self.cube['yellow'][1][2]:  # on red-yellow edge C
+            self.perform_moves("Y O2")
+        
+        if 'W' in self.cube['red'][2][1] and 'O' in self.cube['yellow'][1][2]:  # on red-yellow edge but flipped C
+            self.perform_moves("Y' G O' G'")
+        
+        if 'O' in self.cube['blue'][0][1] and 'W' in self.cube['yellow'][2][1]:  # on blue-yellow edge C
+            self.perform_moves("Y O2")
+        
+        if 'W' in self.cube['blue'][0][1] and 'O' in self.cube['yellow'][2][1]:  # on blue-yellow edge but flipped C
+            self.perform_moves("B' O B")
+
+        if 'O' in self.cube['green'][1][2] and 'W' in self.cube['red'][1][0]:  # on green-red edge C
+            self.perform_moves("G Y' O2 G'")
+        
+        if 'W' in self.cube['green'][1][2] and 'O' in self.cube['red'][1][0]:  # on green-red edge but flipped C
+            self.perform_moves("R  Y2 O2  R'")
 
     def print_cube(self):
         for face, stickers in self.cube.items():

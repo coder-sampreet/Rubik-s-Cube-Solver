@@ -142,6 +142,27 @@ class RubiksCube:
             self.cube['yellow'][2][2],self.cube['yellow'][1][2],self.cube['yellow'][0][2] = [self.cube['green'][2][2],self.cube['green'][1][2],self.cube['green'][0][2]]
             self.cube['green'][2][2],self.cube['green'][1][2],self.cube['green'][0][2] = temp
 
+    def check_face(self,color):
+            if color == "R":
+                return "red"
+            elif color == "G":
+                return "green"
+            elif color == "B":
+                return "blue"
+            elif color == "Y":
+                return "yellow"
+            elif color == "O":
+                return "orange"
+            elif color == "W": 
+                return "white"
+    
+    def perform_moves(self, moves):
+        for move in moves.split():
+            if move.endswith("'"):
+                self.rotate_face_counter_clockwise(self.check_face(move[0]))
+            else:
+                self.rotate_face_clockwise(self.check_face(move))
+
     def white_cross(self):
         #complete the white cross using beginner's method
 
